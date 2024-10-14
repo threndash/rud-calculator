@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>IDEA-Apps: Kalkulačka RUD</title>
+    
+    <meta name="description" content="Kalkulačka odhadu finančních ztrát způsobených výlukou prezenční výuky">
+    <meta name="author" content="IDEA-Apps">
+    
+    <link rel="shortcut icon" type="image/png" href="/idea-logo-bookmark.png">
+   	<link rel="apple-touch-icon" sizes="152x152" href="/idea-logo-bookmark-retina.png">
+    <link rel="stylesheet" href="www/css/main.css?version=5">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+	
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+
+	<script src="www/js/updateMenus.js"></script>
+
+
+</head>
+
+<body>
+  <div class="background">
+    <div id="area">
+      <div id="title">
+        <h1>Kalkulačka</h1>
+        <h2>srovnání výnosů obcí z RUD na žáky s náklady obcí na provoz škol</h2>
+      </div>
+      <div id="table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="align-middle header" style="width:22%;font-size:1.2em;border-top: 0px;">
+              	<div style="display:flex;justify-content:space-between">
+              		<span style="margin-top:auto;margin-bottom:auto">Reálné údaje:</span>
+              		<button id="calculate" type="button" class="btn btn-light pink">Spočítej</button>
+              	</div>
+              </th>
+              <th style="width:23%;border-top: 0px;" class="left header">
+              	<button id="default" type="button" class="btn btn-light pink">Původní nastavení</button>
+              </th>
+              <th class="align-middle header" style="width:22%;font-size:1.2em;border-top: 0px;">
+              <div style="display:flex;justify-content:space-between">
+              		<span style="margin-top:auto;margin-bottom:auto">Simulace:</span>
+              		<button id="reset" type="button" class="btn btn-light pink">Reset</button>
+              	</div>
+              </th>
+              <th class="header" style="width:23%; border-top: 0px;">
+				<button id="copy" type="button" class="btn btn-light pink">Přenes reálné údaje</button>
+              </th>
+              <th class="header" style="width:10%; border-top: 0px;">
+              </th>
+            </tr>
+          </thead>
+          <tr>
+            <td class="real">RUD rok:</td>
+            <td class="left real">
+            <select class="selectpicker" id="rokDropdown" onchange="updateNumbers(this.value)"></select>
+            </td>
+            <td class="simulate"></td>
+            <td class="simulate"></td>
+            <td class="simulate"></td>
+          </tr>
+          <tr>
+          	<td class="real">Výnos RUD na žáka:</td>
+            <td class="left real">              
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="0" min="0" readonly="readonly" id="prostredkyNaZaka">
+                  <div class="input-group-append">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+            </td>
+            <td class="simulate">
+            	<div>Výnos RUD na žáka:</div>
+            	<div id="prostredkyNaZakaSimuError" style="color:red;display:none;">Chybné zadání způsobující dělení nulou</div>
+            </td>
+            <td class="simulate">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control user-input" type="text" value="0" min="0" id="prostredkyNaZakaSimu" onchange="updatePocetDetiSimu()">
+                  <div class="input-group-append">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+            </td>
+            <td class="header" style="width:22%; border-top: 0px;">
+				<button id="calculateProstredkyNaZakaSimu" type="button" class="btn btn-light pink" onclick="calculateProstredkyNaZakaSimu()">Dopočítej</button>
+            </td>
+          </tr>
+          <tr>
+          	<td class="real">Obec:</td>
+            <td class="left real">
+            <select class="selectpicker" data-live-search="true" data-size="5" data-max-options="100" id="obecDropdown" onchange="updatePocetDeti()"></select>
+            </td>
+            <td class="simulate" ></td>
+            <td class="simulate"></td>
+            <td class="header" style="width:10%; border-top: 0px;"></td>
+          </tr>
+          <tr>
+            <td class="real">Počet žáků:</td>
+            <td class="left real">              
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="0" min="0" readonly="readonly" id="pocetDeti">
+                </div>
+            </td>
+            <td class="simulate">
+            	<div>Počet žáků:</div>
+            	<div id="pocetDetiSimuError" style="color:red;display:none;">Chybné zadání způsobující dělení nulou</div>
+            </td>
+            <td class="simulate">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control user-input" type="text" value="0" min="0" id="pocetDetiSimu" onchange="updatePocetDetiSimu()">
+                </div>
+            </td>
+            <td class="header" style="width:22%; border-top: 0px;">
+				<button id="calculatePocetDetiSimu" type="button" class="btn btn-light pink" onclick="calculatePocetDetiSimu()">Dopočítej</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="real">Výnos RUD za žáky: <sup>1)</sup></td>
+            <td class="left real">              
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="0" min="0" readonly="readonly" id="prostredkyCelkem">
+                  <div class="input-group-append">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+            </td>
+            <td class="align-middle main-simulate">Výnos RUD za žáky</td>
+            <td class="main-simulate">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="0" min="0" readonly="readonly" id="prostredkyCelkemSimu">
+                  <div class="input-group-append">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+            </td>
+             <td class="header" style="width:10%; border-top: 0px;"></td>
+          </tr>
+          <tr>
+            <td class="real"><div>Náklady obce na školu:</div><div id="nakladyCelkemEmpty" style="color:red;display:none;">Musíte zadat nenulový údaj o výdajích obce na školu</div></td>
+            <td class="left real">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" value="0" min="0" class="form-control user-input" aria-label="" id="nakladyCelkem" onchange="updateNaklady()">
+                  <div class="input-group-append with-nav">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="simulate">
+            	<div>Náklady obce na školu:</div>
+            	<div id="nakladyCelkemSimuError" style="color:red;display:none;">Chybné zadání způsobující dělení nulou</div>
+            </td>
+            <td class="simulate">
+            <div class="form-group">
+                <div class="input-group">
+                  <input type="text" value="0" min="0" class="form-control user-input" aria-label="" id="nakladyCelkemSimu" onchange="updateNakladySimu()">
+                  <div class="input-group-append">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="header" style="width:22%; border-top: 0px;">
+				<button id="calculateNakladyCelkemSimu" type="button" class="btn btn-light pink" onclick="calculateNakladyCelkemSimu()">Dopočítej</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="real">Náklady obce na žáka:</td>
+            <td class="left real">              
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="0" min="0" readonly="readonly" id="nakladyNaZaka">
+                  <div class="input-group-append">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+            </td>
+            <td class="simulate">Náklady obce na žáka:</td>
+            <td class="simulate">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="0" min="0" readonly="readonly" id="nakladyNaZakaSimu">
+                  <div class="input-group-append">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+            </td>
+              <td class="header" style="width:10%; border-top: 0px;"></td>
+          </tr>
+          <tr>
+            <td class="real">Čistý výnos na žáka: <sup>2)</sup></td>
+            <td class="left real">
+              <div class="form-group">
+                <div class="input-group cisty-vynos">
+                  <input class="form-control colored" type="text" value="0" min="0" readonly="readonly" id="cistyVynosNaZaka">
+                  <div class="input-group-append" style="border-radius: 0;">
+                    <span class="input-group-text" style="border-radius: 0;">Kč</span>
+                  </div>
+                  <input class="form-control user-input" readonly="readonly" id="cistyVynosNaZakaPerc" value="0%">
+                </div>
+            </td>
+            <td class="simulate">
+            	<div>Čistý výnos na žáka:</div>
+            	<div id="cistyVynosNaZakaSimuError" style="color:red;display:none;">Chybné zadání způsobující dělení nulou</div>
+            </td>
+            <td class="main-simulate">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control user-input" type="text" value="0" min="0" id="cistyVynosNaZakaSimu" onchange="updateCistyVynosCelkemSimu()">
+                  <div class="input-group-append" style="border-radius: 0;">
+                    <span class="input-group-text" style="border-radius: 0;">Kč</span>
+                  </div>
+                  <input class="form-control user-input" readonly="readonly" id="cistyVynosNaZakaSimuPerc" value="0%">
+                </div>
+            </td>
+            <td class="simulate" style="width:22%; border-top: 0px;"></td>
+          </tr>
+          <tr>
+            <td class="real">Čistý výnos:</td>
+            <td class="left real">
+              <div class="form-group">
+                <div class="input-group cisty-vynos">
+                  <input class="form-control colored" type="text" value="0" min="0" readonly="readonly" id="cistyVynosCelkem">
+                  <div class="input-group-append">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+            </td>
+            <td class="simulate">Čistý výnos:</td>
+            <td class="simulate">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control user-input" type="text" value="0" min="0" id="cistyVynosCelkemSimu" onchange="updateCistyVynosNaZakaSimu()">
+                  <div class="input-group-append">
+                    <span class="input-group-text">Kč</span>
+                  </div>
+                </div>
+            </td>
+            <td class="simulate" style="width:22%; border-top: 0px;"></td>
+          </tr>
+        </table>
+      </div>
+      <div id="footnotes">
+        <div style="width: 50%;float: left;font-size: 0.96em;padding:0px 15px;">
+          <p><sup>1)</sup> Výnos RUD za žáky = Výnos RUD na žáka x Počet žáků
+          <br>
+          <sup>2)</sup> Čistý výnos na žáka = Výnos RUD na žáka - Náklady obce na na žáka</p>
+        </div>
+        
+         <div style="width: 50%;display: flex;padding:0px 15px;">
+          	<div style="width:35%;font-size:14px;">Kalkulačka vznikla v rámci Klubu zřizovatelů, který provozuje EDUin, díky finanční podpoře Abakusu - Nadačního fondu zakladatelů Avastu.</div>
+          	<div style="width:25%"><a href="" target="_blank">
+         		<div style="height:35px;text-align:center;margin-bottom:20px;"><img src="www/EDUin_logo_white.svg" height="100%"></a></div>
+         		<div style="height:90px;text-align:center;"><img src="www/black-nf-white.svg" height="100%"></a></div>
+         	</div>
+         	 <div style="width:40%;">
+          <div style="height:35px;text-align:center;margin-bottom: 20px;"><a href="https://idea.cerge-ei.cz" target="_blank"><img src="https://raw.githubusercontent.com/threndash/logo/master/idea-logo-white.png" height="100%"></a></div>
+          <div style="height:90px;text-align:center;"><a href="http://av21.avcr.cz" target="_blank"><img src="https://raw.githubusercontent.com/threndash/logo/master/strategie-av21-logo-eng-white.png" height="100%"></a></div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <script src="www/js/main.js?version=3"></script>
+</body>

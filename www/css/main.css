@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans');
+@import url('/font-awesome-4.6.3/css/font-awesome.min.css');
+
+#area {
+  background-color: #404040;
+  width: 1030px;
+  margin: auto;
+  zoom: 1;
+  -moz-transform: scale(1);
+}
+
+@media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) { 
+  zoom: 0.9;
+  -moz-transform: scale(0.9);
+}
+
+.left {
+  border-right: 2px dashed #fff;
+}
+
+#title {
+  color: #ffffff;
+  text-align: center;
+  padding-bottom: 7px;
+  padding-top: 7px;  
+  background-color: #c90239;
+}
+
+#title > h1 {
+  font-weight: 900;
+  font-family: "Nunito Sans", sans-serif;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+#footnotes {
+  position: relative;
+  background-color: #404040;
+  color: #ffffff;
+  width: 1030px;
+  padding: 20px 0px;
+  font-family: "Nunito Sans", sans-serif;
+  float: left;
+  font-size: 1.1em;
+  display: flex;
+}
+
+#table {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+}
+
+.table {
+  font-family: "Nunito Sans", sans-serif;
+  color: #fff;
+  margin-bottom: 0em;
+}
+
+.form-group {
+  margin-bottom: 0rem !important;
+  height: auto !important;
+}
+
+ol {
+  counter-reset: list;
+  margin: 0;
+  padding: 0;
+}
+ol > li {
+  list-style: none;
+}
+ol > li:before {
+  content: counter(list) ") ";
+  counter-increment: list;
+}
+
+a:link {
+  color: #fff5b2;
+}
+a:hover {
+  color: #fff5b2;
+}
+a:visited {
+  color: #fff5b2;
+  text-decoration: underline;
+}
+
+#pubbud-group > input, #pubbud-group > div > span, #total-group > input, #total-group > div > span, #totincome-group > input, #totincome-group > div > span {
+  background-color: #c90239;
+  color: #fff;
+}
+
+.cisty-vynos > input.colored, .cisty-vynos > div > span {
+  background-color: #fff5b2 !important;
+  color: #333;
+  border-color: #333;
+}
+
+#total-group > input, #total-group > div > span {
+  font-weight: 900;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
+}
+
+.header {
+  background-color: #404040;
+  color: #fff;
+}
+
+.real {
+  background-color: #D0D0D0 !important;
+  color: #404040;
+}
+
+.simulate, .compare {
+  background-color: #666666;
+  color: #fff;
+}
+
+.main-simulate {
+  background-color: #685857;
+  color: #fff;
+}
+
+.main-simulate {
+  background-color: #685857;
+  color: #fff;
+}
+
+.btn-dark {
+  background-color: #EFEFEF !important;
+  color: #404040 !important;
+}
+
+.input-group-append.with-nav {
+flex: 0;
+}
+
+.input-group-append {
+margin-left: 0px !important;
+}
+
+.input-group-text {
+height: 100% !important;
+border-top-left-radius: 0 !important;
+border-bottom-left-radius: 0 !important;
+}
+
+.quantity {
+  position: relative;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]
+{
+  -moz-appearance: textfield !important;
+}
+
+.input-group .quantity {
+  flex: 2;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.input-group .quantity input{
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.quantity input {
+  height: 42px !important;
+  line-height: 1.65 !important;
+  float: left !important;
+  display: block !important;
+  margin: 0 !important;
+  border: 1px solid #eee !important;
+}
+
+.quantity input:focus {
+  outline: 0;
+}
+
+.quantity-nav {
+  float: left;
+  position: relative;
+  height: 42px;
+}
+
+.quantity-button {
+  position: relative;
+  cursor: pointer;
+  border-left: 1px solid #eee;
+  width: 20px;
+  text-align: center;
+  color: #333;
+  font-size: 15px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+  line-height: 1.5;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color: #666666;
+}
+
+.quantity-button.quantity-up {
+  position: absolute;
+  height: 50%;
+  top: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.quantity-button:hover {
+  background: #eee;
+  color: #000;
+}
+
+.quantity-button.quantity-down {
+  position: absolute;
+  bottom: 0px;
+  height: 50%;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+background-color: #c90239 !important;
+}
+
+.bs-searchbox input:focus {
+border-color: #f08098 !important;
+box-shadow: 0 4px 8px rgba(240, 128, 152, 0.5) !important;
+outline: none;
+}
+
+button.pink {
+background-color: #FADBE0 !important;
+border-color: #FADBE0 !important;
+}
+
+#cistyVynosNaZaka {
+min-width:100px;
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
+}
+
+#cistyVynosNaZakaPerc {
+background-color: #fff5b2;
+margin-left: 0px !important;
+border-top-right-radius: .25rem !important;
+border-bottom-right-radius: .25rem !important;
+min-width: 46px;
+border-color: #333;
+}
+
+#cistyVynosNaZakaSimu {
+min-width:100px;
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
+}
+
+#cistyVynosNaZakaSimuPerc {
+background-color: #e9ecef;
+margin-left: 0px !important;
+border-top-right-radius: .25rem !important;
+border-bottom-right-radius: .25rem !important;
+min-width: 46px;
+border-color: #ced4da;
+}
