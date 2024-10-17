@@ -1,5 +1,6 @@
 let data = []; // Initialize an empty array for JSON data
-const defaultObec = 'Husinec (Praha-východ)';
+const defaultObec = '';
+const defaultRok = '2023';
 
         // Function to load JSON data from file
         function loadJSON() {
@@ -12,7 +13,7 @@ const defaultObec = 'Husinec (Praha-východ)';
                 })
                 .then(jsonData => {
                     data = jsonData; // Store the JSON data
-                    data_init = data.find(p => p.rok === '2023');
+                    data_init = data.find(p => p.rok === defaultRok);
         			obecKeys = Object.keys(data_init.obec);
                     populateRokDropdown(); // Populate the dropdown once data is loaded
                     populateObecDropdown();
@@ -30,6 +31,9 @@ const defaultObec = 'Husinec (Praha-východ)';
                 rokDropdown.appendChild(option);
             });
             $('#rokDropdown').selectpicker('refresh');
+            $('#rokDropdown').val(defaultRok);
+            $('#rokDropdown').selectpicker('refresh');
+            $('#rokDropdown').selectpicker('render');
         }
         
         function populateObecDropdown() {
@@ -45,7 +49,7 @@ const defaultObec = 'Husinec (Praha-východ)';
             $('#obecDropdown').selectpicker('refresh');
             $('#obecDropdown').selectpicker('render');
             
-            updateNumbers('2023');
+            updateNumbers(defaultRok);
         }
         
         function updateProstredkyNaZaka() {
