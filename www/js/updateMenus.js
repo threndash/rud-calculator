@@ -215,9 +215,12 @@ const defaultRok = '2023';
         		if(cistyVynosNaZakaSimuPerc > 0){
         			document.getElementById("cistyVynosNaZakaSimuPerc").value = '+' + cistyVynosNaZakaSimuPerc + '%';
         			document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#DBFAE0';
-        		} else {
+        		} else if(cistyVynosNaZakaSimuPerc < 0) {
         			document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
         			document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#FADBE0';
+        		} else {
+        			document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
+        			document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#e9ecef';
         		}
         		$("#cistyVynosNaZakaSimuError").hide();
         	} else {
@@ -235,9 +238,12 @@ const defaultRok = '2023';
         	if(cistyVynosNaZakaSimuPerc > 0){
         		document.getElementById("cistyVynosNaZakaSimuPerc").value = '+' + cistyVynosNaZakaSimuPerc + '%';
         		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#DBFAE0';
-        	} else {
+        	} else if(cistyVynosNaZakaSimuPerc < 0) {
         		document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
         		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#FADBE0';
+        	} else {
+        		document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
+        		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#e9ecef';
         	}
         }
         
