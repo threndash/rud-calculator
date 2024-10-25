@@ -229,7 +229,16 @@ const defaultRok = '2023';
         	const cistyVynosNaZakaSimu = document.getElementById("cistyVynosNaZakaSimu").value.replace(/\s+/g, '');
         	const pocetDetiSimu =  document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
         	const cistyVynosCelkemSimu = Math.round(cistyVynosNaZakaSimu * pocetDetiSimu);
+        	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
+        	const cistyVynosNaZakaSimuPerc = Math.round(cistyVynosNaZakaSimu/prostredkyNaZakaSimu * 100);
         	document.getElementById("cistyVynosCelkemSimu").value = cistyVynosCelkemSimu.toLocaleString('cs-CZ');
+        	if(cistyVynosNaZakaSimuPerc > 0){
+        		document.getElementById("cistyVynosNaZakaSimuPerc").value = '+' + cistyVynosNaZakaSimuPerc + '%';
+        		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#DBFAE0';
+        	} else {
+        		document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
+        		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#FADBE0';
+        	}
         }
         
         function updatePocetDetiSimu() {
