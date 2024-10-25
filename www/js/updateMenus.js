@@ -205,9 +205,20 @@ const defaultRok = '2023';
         function updateCistyVynosNaZakaSimu() {
         	const cistyVynosCelkemSimu = document.getElementById("cistyVynosCelkemSimu").value.replace(/\s+/g, '');
         	const pocetDetiSimu =  document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
+        	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
+
         	if (pocetDetiSimu > 0){
         		const cistyVynosNaZakaSimu = cistyVynosCelkemSimu / pocetDetiSimu;
+        		const cistyVynosNaZakaSimuPerc = Math.round(cistyVynosNaZakaSimu/prostredkyNaZakaSimu * 100);
         		document.getElementById("cistyVynosNaZakaSimu").value = cistyVynosNaZakaSimu.toLocaleString('cs-CZ');
+        		
+        		if(cistyVynosNaZakaSimuPerc > 0){
+        			document.getElementById("cistyVynosNaZakaSimuPerc").value = '+' + cistyVynosNaZakaSimuPerc + '%';
+        			document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#DBFAE0';
+        		} else {
+        			document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
+        			document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#FADBE0';
+        		}
         		$("#cistyVynosNaZakaSimuError").hide();
         	} else {
         		$("#cistyVynosNaZakaSimuError").show();
