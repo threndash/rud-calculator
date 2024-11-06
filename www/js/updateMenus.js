@@ -52,6 +52,8 @@ const defaultRok = '2023';
             updateNumbers(defaultRok);
         }
         
+        // Realne udaje
+        
         function updateProstredkyNaZaka() {
             const selectedRok = document.getElementById("rokDropdown").value;  // Get selected name
             const RUD = data.find(p => p.rok === selectedRok);  // Find RUD
@@ -61,20 +63,25 @@ const defaultRok = '2023';
             } else {
                 document.getElementById("prostredkyNaZaka").value = '';  // Clear the field if no valid selection
             }
+            updateNaklady();
         }
         
         function updateNaklady() {
         	const pocetDeti =  document.getElementById("pocetDeti").value.replace(/\s+/g, '');
         	const nakladyCelkem = document.getElementById("nakladyCelkem").value.replace(/\s+/g, '');
-        	const nakladyNaZaka = Math.round(Number(nakladyCelkem) / Number(pocetDeti));
-        	const prostredkyNaZaka = document.getElementById("prostredkyNaZaka").value.replace(/\s+/g, '');
-        	const prostredkCelkem = prostredkyNaZaka * pocetDeti;
-        	const cistyVynosNaZaka = Number(prostredkyNaZaka) - Number(nakladyNaZaka);
-        	const cistyVynosCelkem = Math.round(cistyVynosNaZaka * pocetDeti);
-        	const cistyVynosNaZakaPerc = Math.round(cistyVynosNaZaka/prostredkyNaZaka * 100);
         	
-        	if(nakladyNaZaka){
-        	    $('#nakladyCelkemEmpty').hide();
+        	if(Number(pocetDeti)>0){
+        		var nakladyNaZaka = Math.round(Number(nakladyCelkem) / Number(pocetDeti));
+        	} else {
+        		var nakladyNaZaka = '0';
+        	}
+        	const prostredkyNaZaka = document.getElementById("prostredkyNaZaka").value.replace(/\s+/g, '');
+        	const prostredkyCelkem = Number(prostredkyNaZaka) * Number(pocetDeti);
+        	const cistyVynosNaZaka = Number(prostredkyNaZaka) - Number(nakladyNaZaka);
+        	const cistyVynosCelkem = prostredkyCelkem - Number(nakladyCelkem);
+        	const cistyVynosNaZakaPerc = Math.round(cistyVynosNaZaka/Number(prostredkyNaZaka) * 100);
+        	
+        	$('#nakladyCelkemEmpty').hide();
         		document.getElementById("nakladyNaZaka").value = nakladyNaZaka.toLocaleString('cs-CZ');
         		if(prostredkyNaZaka){
         			document.getElementById("cistyVynosNaZaka").value = cistyVynosNaZaka.toLocaleString('cs-CZ');
@@ -92,49 +99,6 @@ const defaultRok = '2023';
         			document.getElementById("cistyVynosNaZakaPerc").value = '0%';
         			document.getElementById("cistyVynosNaZakaPerc").style.backgroundColor = '#fff5b2';
         		}
-        	} else {
-        		document.getElementById("nakladyNaZaka").value = '0';
-        		document.getElementById("cistyVynosNaZaka").value = '0';
-        		document.getElementById("cistyVynosCelkem").value = '0';
-        		document.getElementById("cistyVynosNaZakaPerc").value = '0%';
-        		document.getElementById("cistyVynosNaZakaPerc").style.backgroundColor = '#fff5b2';
-        	}
-        }
-        
-        function updateNakladySimu() {
-        	const pocetDetiSimu =  document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
-        	const nakladyCelkemSimu = document.getElementById("nakladyCelkemSimu").value.replace(/\s+/g, '');
-        	const nakladyNaZakaSimu = Math.round(Number(nakladyCelkemSimu) / Number(pocetDetiSimu));
-        	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
-        	const cistyVynosNaZakaSimu = Number(prostredkyNaZakaSimu) - Number(nakladyNaZakaSimu);
-        	const cistyVynosCelkemSimu = Math.round(cistyVynosNaZakaSimu * pocetDetiSimu);
-        	const cistyVynosNaZakaSimuPerc = Math.round(cistyVynosNaZakaSimu/prostredkyNaZakaSimu * 100);
-
-        	if(nakladyNaZakaSimu){
-        		document.getElementById("nakladyNaZakaSimu").value = nakladyNaZakaSimu.toLocaleString('cs-CZ');
-        		if(prostredkyNaZakaSimu){
-        			document.getElementById("cistyVynosNaZakaSimu").value = cistyVynosNaZakaSimu.toLocaleString('cs-CZ');
-        			document.getElementById("cistyVynosCelkemSimu").value = cistyVynosCelkemSimu.toLocaleString('cs-CZ');
-        			if(cistyVynosNaZakaSimuPerc > 0){
-        				document.getElementById("cistyVynosNaZakaSimuPerc").value = '+' + cistyVynosNaZakaSimuPerc + '%';
-        				document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#DBFAE0';
-        			} else {
-        				document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
-        				document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#FADBE0';
-        			}
-        		} else {
-        			document.getElementById("cistyVynosNaZakaSimu").value = '0';
-        			document.getElementById("cistyVynosCelkemSimu").value = '0';
-        			document.getElementById("cistyVynosNaZakaSimuPerc").value = '0%';
-        			document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#e9ecef';
-        		}
-        	} else {
-        		document.getElementById("nakladyNaZakaSimu").value = '0';
-        		document.getElementById("cistyVynosNaZakaSimu").value = '0';
-        		document.getElementById("cistyVynosCelkemSimu").value = '0';
-        		document.getElementById("cistyVynosNaZakaSimuPerc").value = '0%';
-        		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#e9ecef';
-        	}
         }
         
         function updatePocetDeti() {
@@ -157,84 +121,66 @@ const defaultRok = '2023';
         function updateNumbers(selectedRok) {
         	updateProstredkyNaZaka();
         	updatePocetDeti();
+        	updateNaklady();
         }
         
-        function calculateNakladyCelkemSimu() {
-        	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
-        	const pocetDetiSimu = document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
-        	if (pocetDetiSimu > 0){
-        		const cistyVynosNaZakaSimu = document.getElementById("cistyVynosNaZakaSimu").value.replace(/\s+/g, '');
-        		const nakladyNaZakaSimu = Number(prostredkyNaZakaSimu) - Number(cistyVynosNaZakaSimu);
-        		const nakladyCelkemSimu = nakladyNaZakaSimu * Number(pocetDetiSimu);
-        		document.getElementById("nakladyCelkemSimu").value = nakladyCelkemSimu.toLocaleString('cs-CZ');
-        		updateNakladySimu();
-        		$("#nakladyCelkemSimuError").hide();
-        	} else {
-        		$("#nakladyCelkemSimuError").show();
-        	}
-        }
+        // Simulace - Update
         
-        function calculatePocetDetiSimu() {
-        	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
-        	const nakladyCelkemSimu = document.getElementById("nakladyCelkemSimu").value.replace(/\s+/g, '');
-        	const cistyVynosNaZakaSimu = document.getElementById("cistyVynosNaZakaSimu").value.replace(/\s+/g, '');
-        	const nakladyNaZakaSimu = Number(prostredkyNaZakaSimu) - Number(cistyVynosNaZakaSimu);
-        	if (nakladyNaZakaSimu > 0){
-        		const pocetDetiSimu = Math.round(Number(nakladyCelkemSimu) / nakladyNaZakaSimu);
-        		document.getElementById("pocetDetiSimu").value = pocetDetiSimu.toLocaleString('cs-CZ');
-        		$("#pocetDetiSimuError").hide();
-        	} else {
-        		$("#pocetDetiSimuError").show();
-        	}
-        }
-        
-        function calculateProstredkyNaZakaSimu() {
+        function updatePocetDetiSimu() {
+        	divisionZeroError();
+        	addClass('warn');
+        	cistyVynosNaZakaSimuPercEmpty();
+        	        	
         	const pocetDetiSimu =  document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
-        	const nakladyCelkemSimu = document.getElementById("nakladyCelkemSimu").value.replace(/\s+/g, '');
-        	const cistyVynosNaZakaSimu = document.getElementById("cistyVynosNaZakaSimu").value.replace(/\s+/g, '');
-        	if (pocetDetiSimu > 0){
-        		const nakladyNaZakaSimu = Number(nakladyCelkemSimu) / Number(pocetDetiSimu);
-        		const prostredkyNaZakaSimu = Math.round(Number(cistyVynosNaZakaSimu) + nakladyNaZakaSimu);
-        		document.getElementById("prostredkyNaZakaSimu").value = prostredkyNaZakaSimu.toLocaleString('cs-CZ');
-        		$("#prostredkyNaZakaSimuError").hide();
-        	} else {
-        		$("#prostredkyNaZakaSimuError").show();
-        	}
-        }
-        
-        function updateCistyVynosNaZakaSimu() {
-        	const cistyVynosCelkemSimu = document.getElementById("cistyVynosCelkemSimu").value.replace(/\s+/g, '');
-        	const pocetDetiSimu =  document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
-        	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
-
-        	if (pocetDetiSimu > 0){
-        		const cistyVynosNaZakaSimu = cistyVynosCelkemSimu / pocetDetiSimu;
-        		const cistyVynosNaZakaSimuPerc = Math.round(cistyVynosNaZakaSimu/prostredkyNaZakaSimu * 100);
+			
+        	if (Number(pocetDetiSimu) > 0) {
+        		const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
+        		const nakladyCelkemSimu = document.getElementById("nakladyCelkemSimu").value.replace(/\s+/g, '');
+        		const cistyVynosCelkemSimu = document.getElementById("cistyVynosCelkemSimu").value.replace(/\s+/g, '');
+        			
+        		const prostredkyCelkemSimu = Math.round(Number(prostredkyNaZakaSimu) * Number(pocetDetiSimu));
+        		const nakladyNaZakaSimu = Math.round(Number(nakladyCelkemSimu) / Number(pocetDetiSimu));
+        		const cistyVynosNaZakaSimu = Math.round(Number(cistyVynosCelkemSimu) / Number(pocetDetiSimu));
+        			
+        		document.getElementById("prostredkyCelkemSimu").value = prostredkyCelkemSimu.toLocaleString('cs-CZ');
+        		document.getElementById("nakladyNaZakaSimu").value = nakladyNaZakaSimu.toLocaleString('cs-CZ');
         		document.getElementById("cistyVynosNaZakaSimu").value = cistyVynosNaZakaSimu.toLocaleString('cs-CZ');
-        		
-        		if(cistyVynosNaZakaSimuPerc > 0){
-        			document.getElementById("cistyVynosNaZakaSimuPerc").value = '+' + cistyVynosNaZakaSimuPerc + '%';
-        			document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#DBFAE0';
-        		} else if(cistyVynosNaZakaSimuPerc < 0) {
-        			document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
-        			document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#FADBE0';
-        		} else {
-        			document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
-        			document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#e9ecef';
-        		}
-        		$("#cistyVynosNaZakaSimuError").hide();
         	} else {
-        		$("#cistyVynosNaZakaSimuError").show();
+        		document.getElementById("prostredkyCelkemSimu").value = '0';
+        		document.getElementById("nakladyNaZakaSimu").value = 'Dělení nulou';
+        		document.getElementById("cistyVynosNaZakaSimu").value = 'Dělení nulou';
         	}
+        }
+        
+        // Simulace - Update - Celkem
+        
+        function updateNakladyCelkemSimu() {
+        	updatePocetDetiSimu();
+        	addClass('warn');
+        	cistyVynosNaZakaSimuPercEmpty();
         }
         
         function updateCistyVynosCelkemSimu() {
+        	updatePocetDetiSimu();
+        	addClass('warn');
+        	cistyVynosNaZakaSimuPercEmpty();
+        }
+        
+        // Simulace - Update - Na Zaka
+        
+        function updateProstredkyNaZakaSimu () {
+			updatePocetDetiSimu();
+			addClass('warn');
+			cistyVynosNaZakaSimuPercEmpty();
+        }
+        
+        // Simulace - Perc Cisty Vynos
+        
+        function cistyVynosNaZakaSimuPerc() {
         	const cistyVynosNaZakaSimu = document.getElementById("cistyVynosNaZakaSimu").value.replace(/\s+/g, '');
-        	const pocetDetiSimu =  document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
-        	const cistyVynosCelkemSimu = Math.round(cistyVynosNaZakaSimu * pocetDetiSimu);
         	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
         	const cistyVynosNaZakaSimuPerc = Math.round(cistyVynosNaZakaSimu/prostredkyNaZakaSimu * 100);
-        	document.getElementById("cistyVynosCelkemSimu").value = cistyVynosCelkemSimu.toLocaleString('cs-CZ');
+        		
         	if(cistyVynosNaZakaSimuPerc > 0){
         		document.getElementById("cistyVynosNaZakaSimuPerc").value = '+' + cistyVynosNaZakaSimuPerc + '%';
         		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#DBFAE0';
@@ -247,26 +193,92 @@ const defaultRok = '2023';
         	}
         }
         
-        function updatePocetDetiSimu() {
+        function cistyVynosNaZakaSimuPercEmpty() {
+        	document.getElementById("cistyVynosNaZakaSimuPerc").value = '';
+        	document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#e9ecef';
+        }
+        
+                
+        // Simulace - Calculate - PocetDeti
+        function calculatePocetDetiSimu() {
+        	const cistyVynosCelkemSimu = document.getElementById("cistyVynosCelkemSimu").value.replace(/\s+/g, '');
+        	const nakladyCelkemSimu = document.getElementById("nakladyCelkemSimu").value.replace(/\s+/g, '');
+        	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
+        	
+        	const pocetDetiSimu = (Number(nakladyCelkemSimu) + Number(cistyVynosCelkemSimu)) / Number(prostredkyNaZakaSimu);
+       		const cistyVynosNaZakaSimu = Number(cistyVynosCelkemSimu)/pocetDetiSimu;
+       		const nakladyNaZakaSimu = Number(nakladyCelkemSimu)/pocetDetiSimu;
+       		const prostredkyCelkemSimu = Number(prostredkyNaZakaSimu)*pocetDetiSimu;
+       		
+       		document.getElementById("pocetDetiSimu").value = Math.round(pocetDetiSimu).toLocaleString('cs-CZ');
+       		document.getElementById("cistyVynosNaZakaSimu").value = Math.round(cistyVynosNaZakaSimu).toLocaleString('cs-CZ');
+       		document.getElementById("nakladyNaZakaSimu").value = Math.round(nakladyNaZakaSimu).toLocaleString('cs-CZ');
+       		document.getElementById("prostredkyCelkemSimu").value = Math.round(prostredkyCelkemSimu).toLocaleString('cs-CZ');
+       		
+        	removeClass('warn');
+			cistyVynosNaZakaSimuPerc();
+        }        
+                
+        // Simulace - Calculate - Celkem
+        
+        function calculateCistyVynosCelkemSimu() {
+        	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
+        	const pocetDetiSimu = document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
+        	const nakladyCelkemSimu = document.getElementById("nakladyCelkemSimu").value.replace(/\s+/g, '');
+			
+			const cistyVynosCelkemSimu = Number(prostredkyNaZakaSimu)*Number(pocetDetiSimu) - Number(nakladyCelkemSimu);
+			const cistyVynosNaZakaSimu = cistyVynosCelkemSimu/Number(pocetDetiSimu);
+
+       		document.getElementById("cistyVynosCelkemSimu").value = cistyVynosCelkemSimu.toLocaleString('cs-CZ');
+       		document.getElementById("cistyVynosNaZakaSimu").value = Math.round(cistyVynosNaZakaSimu).toLocaleString('cs-CZ');
+        	
+        	removeClass('warn');
+        	cistyVynosNaZakaSimuPerc();
+        }
+        
+        function calculateNakladyCelkemSimu() {
+			const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
+        	const pocetDetiSimu = document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
+        	const cistyVynosCelkemSimu = document.getElementById("cistyVynosCelkemSimu").value.replace(/\s+/g, '');
+			
+			const nakladyCelkemSimu = Number(prostredkyNaZakaSimu)*Number(pocetDetiSimu) - Number(cistyVynosCelkemSimu);
+			const nakladyNaZakaSimu = nakladyCelkemSimu/Number(pocetDetiSimu);
+
+       		document.getElementById("nakladyCelkemSimu").value = nakladyCelkemSimu.toLocaleString('cs-CZ');
+       		document.getElementById("nakladyNaZakaSimu").value = Math.round(nakladyNaZakaSimu).toLocaleString('cs-CZ');
+        	
+        	removeClass('warn');
+        	cistyVynosNaZakaSimuPerc();
+        }
+        
+        // Simulace - Calculate - Na Zaka
+        
+        function calculateProstredkyNaZakaSimu() {
+        	const nakladyCelkemSimu = document.getElementById("nakladyCelkemSimu").value.replace(/\s+/g, '');
+        	const cistyVynosCelkemSimu = document.getElementById("cistyVynosCelkemSimu").value.replace(/\s+/g, '');
+        	const pocetDetiSimu = document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
+			
+			const prostredkyCelkemSimu = Number(nakladyCelkemSimu) + Number(cistyVynosCelkemSimu);
+			const prostredkyNaZakaSimu = prostredkyCelkemSimu/Number(pocetDetiSimu);
+			
+        	document.getElementById("prostredkyCelkemSimu").value = Math.round(prostredkyCelkemSimu).toLocaleString('cs-CZ');
+        	document.getElementById("prostredkyNaZakaSimu").value = Math.round(prostredkyNaZakaSimu).toLocaleString('cs-CZ');
+        	removeClass('warn');
+        	cistyVynosNaZakaSimuPerc();
+        }
+        
+    	// Errors
+        function divisionZeroError() {
         	const pocetDetiSimu =  document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
-        	if(pocetDetiSimu>0){
-        		const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
-        		const prostredkyCelkemSimu = Number(pocetDetiSimu) * Number(prostredkyNaZakaSimu);
-        		document.getElementById("prostredkyCelkemSimu").value = prostredkyCelkemSimu.toLocaleString('cs-CZ');
-        		const nakladyCelkemSimu = document.getElementById("nakladyCelkemSimu").value.replace(/\s+/g, '');
-        		const nakladyNaZakaSimu = Number(nakladyCelkemSimu) / Number(pocetDetiSimu);
-        		document.getElementById("nakladyNaZakaSimu").value = nakladyNaZakaSimu.toLocaleString('cs-CZ');
-				const cistyVynosNaZakaSimu = prostredkyCelkemSimu - nakladyNaZakaSimu;
-				const cistyVynosCelkemSimu = Math.round(cistyVynosNaZakaSimu * pocetDetiSimu);
-				document.getElementById("cistyVynosNaZakaSimu").value = cistyVynosNaZakaSimu.toLocaleString('cs-CZ');
-        		document.getElementById("cistyVynosCelkemSimu").value = cistyVynosCelkemSimu.toLocaleString('cs-CZ');
+        	
+        	if (Number(pocetDetiSimu) > 0) {
+        		$("#pocetDetiSimuZeroError").hide();
         	} else {
-        		document.getElementById("prostredkyCelkemSimu").value = '0';
-        		document.getElementById("nakladyNaZakaSimu").value = '0';
-				document.getElementById("cistyVynosNaZakaSimu").value = '0';
-        		document.getElementById("cistyVynosCelkemSimu").value = '0';
+        		$("#pocetDetiSimuZeroError").show();
         	}
         }
+    	
+    	// Extra functions
         
         function formatNumberWithSpaces(value) {
         // Remove existing spaces before formatting
@@ -297,7 +309,31 @@ const defaultRok = '2023';
             });
         });
     	}
+    	
+    	function addClass(className) {
+  			const buttonIds = ['calculateNakladyCelkemSimu','calculateProstredkyNaZakaSimu','calculatePocetDetiSimu','calculateCistyVynosCelkemSimu'];
 
+			buttonIds.forEach(id => {
+    		const element = document.getElementById(id);
+
+    		if (element) {
+      		element.classList.add(className);
+    		}
+  			});
+		}
+
+		function removeClass(className) {
+  			const buttonIds = ['calculateNakladyCelkemSimu','calculateProstredkyNaZakaSimu','calculatePocetDetiSimu','calculateCistyVynosCelkemSimu'];
+
+  			buttonIds.forEach(id => {
+    		const element = document.getElementById(id);
+
+    		if (element) {
+   			element.classList.remove(className);
+    		}
+    		});
+		}
+		
    		// Call the function to apply the thousand separator to all numeric inputs on page load
 
         // Call loadJSON on page load to get the data from file

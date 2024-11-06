@@ -113,8 +113,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .header {
-  background-color: #404040;
-  color: #fff;
+  font-size:1.2em;
 }
 
 .real {
@@ -154,6 +153,11 @@ margin-left: 0px !important;
 height: 100% !important;
 border-top-left-radius: 0 !important;
 border-bottom-left-radius: 0 !important;
+background-color: #d9dcdc !important;
+}
+
+input[readonly="readonly"] {
+background-color: #d9dcdc !important;
 }
 
 .quantity {
@@ -255,6 +259,12 @@ background-color: #FADBE0 !important;
 border-color: #FADBE0 !important;
 }
 
+button.warn {
+background-color: #c90239 !important;
+border-color: #c90239 !important;
+color: #fff !important;
+}
+
 #cistyVynosNaZaka {
 min-width:100px;
 border-top-right-radius: 0;
@@ -277,10 +287,51 @@ border-bottom-right-radius: 0;
 }
 
 #cistyVynosNaZakaSimuPerc {
-background-color: #e9ecef;
+background-color: #d9dcdc;
 margin-left: 0px !important;
 border-top-right-radius: .25rem !important;
 border-bottom-right-radius: .25rem !important;
 min-width: 46px;
 border-color: #ced4da;
+}
+
+.form-check-input:checked {
+background-color: #c90239 !important;
+border-color: #c90239 !important;
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 1%29'/%3e%3c/svg%3e") !important; 
+}
+
+.form-check-input:focus:checked {
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 1%29'/%3e%3c/svg%3e") !important; 
+}
+
+.form-check-input:focus {
+box-shadow: 0 0 0 0.25rem rgba(201, 2, 57, 0.5) !important;
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e") !important; 
+}
+
+.sub {
+border-top: 2px dashed #fff;
+}
+
+.optim {
+color: #DBFAE0 !important;
+}
+
+.modal-content {
+background-color: #404040 !important;
+color: #ffffff !important;
+}
+
+button.btn-close {
+background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+}
+
+.btn-secondary {
+background-color: #d0d0d0 !important;
+color: #000 !important;
+}
+
+button:hover {
+opacity: 0.9 !important;
 }
