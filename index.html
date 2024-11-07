@@ -40,29 +40,30 @@
         <table class="table">
           <thead>
             <tr>
-              <th class="align-middle header simulate" style="width:23%;border-top: 0px;">
+              <th class="align-middle header simulate" style="width:17%;border-top: 0px;">
               	<div style="display:flex;justify-content:space-between">
               		<span style="margin-top:auto;margin-bottom:auto">Reálné údaje:</span>
-              		<button id="default" type="button" class="btn btn-light pink">Reset</button>
               	</div>
               </th>
-              <th style="width:24%;border-top: 0px;" class="left header simulate"></th>
-              <th class="align-middle header simulate" style="width:21%;border-top: 0px;">
+              <th style="width:27%;border-top: 0px;" class="left header simulate">
+              <button id="default" type="button" class="btn btn-light pink">Reset</button>
+              </th>
+              <th class="align-middle header simulate" style="width:17%;border-top: 0px;">
               <div style="display:flex;justify-content:space-between">
               		<span style="margin-top:auto;margin-bottom:auto">Simulace:</span>
-              		<button id="reset" type="button" class="btn btn-light pink">Reset</button>
               	</div>
               </th>
-              <th class="align-middle header simulate" style="width:26%; border-top: 0px;">
-              	<button id="copy" type="button" class="btn btn-light pink">Přenes reálné údaje</button>
+              <th class="align-middle header simulate" style="width:27%; border-top: 0px;">
+                <button id="reset" type="button" class="btn btn-light pink">Reset</button>
+              	<button id="copy" type="button" class="btn btn-light pink" style="margin-left:0.5rem">Přenes reálné údaje</button>
               </th>
-              <th class="header simulate" style="width:6%; border-top: 0px;"></th>
+              <th class="header simulate" style="width:12%; border-top: 0px;"></th>
             </tr>
           </thead>
           <tr>
             <td class="real">RUD rok:</td>
             <td class="left real">
-            <select class="selectpicker" title="Vyberte rok" id="rokDropdown" onchange="updateNumbers(this.value)"></select>
+            <select class="selectpicker" title="Vyberte rok" data-width="100%" id="rokDropdown" onchange="updateNumbers(this.value)"></select>
             </td>
             <td class="align-middle header simulate"></td>
             <td class="align-middle header simulate"></td>
@@ -71,7 +72,7 @@
           <tr>
           	<td class="real">Obec:</td>
             <td class="left real">
-            <select class="selectpicker" title="Vyberte obec" data-live-search="true" data-size="5" data-max-options="100" id="obecDropdown" onchange="updatePocetDeti()"></select>
+            <select class="selectpicker" title="Vyberte obec" data-width="100%" data-live-search="true" data-size="5" data-max-options="100" id="obecDropdown" onchange="updatePocetDeti()"></select>
             </td>
             <td class="simulate"></td>
             <td class="header simulate"></td>
@@ -171,9 +172,10 @@
               <div class="form-group">
                 <div class="input-group cisty-vynos">
                   <input class="form-control user-input colored" type="text" value="0" min="0" readonly="readonly" id="cistyVynosCelkem">
-                  <div class="input-group-append">
-                    <span class="input-group-text">Kč</span>
+                  <div class="input-group-append" style="border-radius: 0;">
+                    <span class="input-group-text" style="border-radius: 0;">Kč</span>
                   </div>
+                  <input class="form-control user-input" readonly="readonly" id="cistyVynosCelkemPerc" value="">
                 </div>
             </td>
             <td class="simulate">
@@ -184,9 +186,10 @@
               <div class="form-group">
                 <div class="input-group">
                   <input class="form-control user-input" type="text" value="0" min="0" id="cistyVynosCelkemSimu" onchange="updateCistyVynosCelkemSimu()">
-                  <div class="input-group-append">
-                    <span class="input-group-text">Kč</span>
+                  <div class="input-group-append" style="border-radius: 0;">
+                    <span class="input-group-text" style="border-radius: 0;">Kč</span>
                   </div>
+                  <input class="form-control user-input" readonly="readonly" id="cistyVynosCelkemSimuPerc" value="">
                 </div>
             </td>
             <td class="simulate" style="width:22%; border-top: 0px;">
@@ -264,7 +267,7 @@
                   <div class="input-group-append" style="border-radius: 0;">
                     <span class="input-group-text" style="border-radius: 0;">Kč</span>
                   </div>
-                  <input class="form-control user-input" readonly="readonly" id="cistyVynosNaZakaPerc" value="0%">
+                  <input class="form-control user-input" readonly="readonly" id="cistyVynosNaZakaPerc" value="">
                 </div>
             </td>
             <td class="simulate">

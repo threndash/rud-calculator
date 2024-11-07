@@ -53,6 +53,49 @@ const defaultRok = '2023';
         }
         
         // Realne udaje
+        function cistyVynosNaZakaPerc() {
+        	var cistyVynosNaZaka = document.getElementById("cistyVynosNaZaka").value.replace(/\s+/g, '');
+        	var prostredkyNaZaka = document.getElementById("prostredkyNaZaka").value.replace(/\s+/g, '');
+        	var cistyVynosNaZakaPerc = Math.round(cistyVynosNaZaka/prostredkyNaZaka * 100);
+        		
+        	if(cistyVynosNaZakaPerc > 0){
+        		document.getElementById("cistyVynosNaZakaPerc").value = '+' + cistyVynosNaZakaPerc + '%';
+        		document.getElementById("cistyVynosNaZakaPerc").setAttribute("style","background-color: #DBFAE0 !important");
+        	} else if(cistyVynosNaZakaPerc < 0) {
+        		document.getElementById("cistyVynosNaZakaPerc").value = cistyVynosNaZakaPerc + '%';
+        		document.getElementById("cistyVynosNaZakaPerc").setAttribute("style","background-color: #FADBE0 !important");
+        	} else {
+        		document.getElementById("cistyVynosNaZakaPerc").value = cistyVynosNaZakaPerc + '%';
+        		document.getElementById("cistyVynosNaZakaPerc").setAttribute("style","background-color: #e9ecef !important");
+        	}
+        }
+        
+        function cistyVynosNaZakaPercEmpty() {
+        	document.getElementById("cistyVynosNaZakaPerc").value = '';
+        	document.getElementById("cistyVynosNaZakaPerc").style.backgroundColor = '#e9ecef !important';
+        }
+        
+        function cistyVynosCelkemPerc() {
+        	var cistyVynosCelkem = document.getElementById("cistyVynosCelkem").value.replace(/\s+/g, '');
+        	var prostredkyCelkem = document.getElementById("prostredkyCelkem").value.replace(/\s+/g, '');
+        	var cistyVynosCelkemPerc = Math.round(cistyVynosCelkem/prostredkyCelkem * 100);
+        		
+        	if(cistyVynosCelkemPerc > 0){
+        		document.getElementById("cistyVynosCelkemPerc").value = '+' + cistyVynosCelkemPerc + '%';
+        		document.getElementById("cistyVynosCelkemPerc").setAttribute("style","background-color: #DBFAE0 !important");
+        	} else if(cistyVynosCelkemPerc < 0) {
+        		document.getElementById("cistyVynosCelkemPerc").value = cistyVynosCelkemPerc + '%';
+        		document.getElementById("cistyVynosCelkemPerc").setAttribute("style","background-color: #FADBE0 !important");
+        	} else {
+        		document.getElementById("cistyVynosCelkemPerc").value = cistyVynosCelkemPerc + '%';
+        		document.getElementById("cistyVynosCelkemPerc").setAttribute("style","background-color: #e9ecef !important");
+        	}
+        }
+        
+        function cistyVynosCelkemPercEmpty() {
+        	document.getElementById("cistyVynosCelkemPerc").value = '';
+        	document.getElementById("cistyVynosCelkemPerc").setAttribute("style","background-color: #e9ecef !important");
+        }
         
         function updateProstredkyNaZaka() {
             const selectedRok = document.getElementById("rokDropdown").value;  // Get selected name
@@ -79,25 +122,27 @@ const defaultRok = '2023';
         	const prostredkyCelkem = Number(prostredkyNaZaka) * Number(pocetDeti);
         	const cistyVynosNaZaka = Number(prostredkyNaZaka) - Number(nakladyNaZaka);
         	const cistyVynosCelkem = prostredkyCelkem - Number(nakladyCelkem);
-        	const cistyVynosNaZakaPerc = Math.round(cistyVynosNaZaka/Number(prostredkyNaZaka) * 100);
         	
         	$('#nakladyCelkemEmpty').hide();
-        		document.getElementById("nakladyNaZaka").value = nakladyNaZaka.toLocaleString('cs-CZ');
+        	document.getElementById("nakladyNaZaka").value = nakladyNaZaka.toLocaleString('cs-CZ');
         		if(prostredkyNaZaka){
         			document.getElementById("cistyVynosNaZaka").value = cistyVynosNaZaka.toLocaleString('cs-CZ');
         			document.getElementById("cistyVynosCelkem").value = cistyVynosCelkem.toLocaleString('cs-CZ');
-        			if(cistyVynosNaZakaPerc > 0){
-        				document.getElementById("cistyVynosNaZakaPerc").value = '+' + cistyVynosNaZakaPerc + '%';
-        				document.getElementById("cistyVynosNaZakaPerc").style.backgroundColor = '#DBFAE0';
-        			} else {
-        				document.getElementById("cistyVynosNaZakaPerc").value = cistyVynosNaZakaPerc + '%';
-        				document.getElementById("cistyVynosNaZakaPerc").style.backgroundColor = '#FADBE0';
+        			if(cistyVynosNaZaka !== 0){
+        				cistyVynosNaZakaPerc();
+        			}else{
+        				cistyVynosNaZakaPercEmpty();
+        			}
+        			if(cistyVynosCelkem !== 0){
+        				cistyVynosCelkemPerc();
+        			}else{
+        				cistyVynosCelkemPercEmpty();
         			}
         		} else {
         			document.getElementById("cistyVynosNaZaka").value = '0';
         			document.getElementById("cistyVynosCelkem").value = '0';
-        			document.getElementById("cistyVynosNaZakaPerc").value = '0%';
-        			document.getElementById("cistyVynosNaZakaPerc").style.backgroundColor = '#fff5b2';
+        			cistyVynosNaZakaPercEmpty();
+        			cistyVynosCelkemPercEmpty();
         		}
         }
         
@@ -130,6 +175,7 @@ const defaultRok = '2023';
         	divisionZeroError();
         	addClass('warn');
         	cistyVynosNaZakaSimuPercEmpty();
+        	cistyVynosCelkemSimuPercEmpty();
         	        	
         	const pocetDetiSimu =  document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
 			
@@ -158,44 +204,76 @@ const defaultRok = '2023';
         	updatePocetDetiSimu();
         	addClass('warn');
         	cistyVynosNaZakaSimuPercEmpty();
+        	cistyVynosCelkemSimuPercEmpty();
         }
         
         function updateCistyVynosCelkemSimu() {
         	updatePocetDetiSimu();
         	addClass('warn');
         	cistyVynosNaZakaSimuPercEmpty();
+        	cistyVynosCelkemSimuPercEmpty();
         }
         
         // Simulace - Update - Na Zaka
         
         function updateProstredkyNaZakaSimu () {
-			updatePocetDetiSimu();
+			const pocetDetiSimu =  document.getElementById("pocetDetiSimu").value.replace(/\s+/g, '');
+			
+        	if (Number(pocetDetiSimu) > 0) {
+        		const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
+        		const prostredkyCelkemSimu = Math.round(Number(prostredkyNaZakaSimu) * Number(pocetDetiSimu));
+        		document.getElementById("prostredkyCelkemSimu").value = prostredkyCelkemSimu.toLocaleString('cs-CZ');
+        	}
+        	
 			addClass('warn');
 			cistyVynosNaZakaSimuPercEmpty();
+			cistyVynosCelkemSimuPercEmpty();
         }
         
         // Simulace - Perc Cisty Vynos
         
         function cistyVynosNaZakaSimuPerc() {
-        	const cistyVynosNaZakaSimu = document.getElementById("cistyVynosNaZakaSimu").value.replace(/\s+/g, '');
-        	const prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
-        	const cistyVynosNaZakaSimuPerc = Math.round(cistyVynosNaZakaSimu/prostredkyNaZakaSimu * 100);
+        	var cistyVynosNaZakaSimu = document.getElementById("cistyVynosNaZakaSimu").value.replace(/\s+/g, '');
+        	var prostredkyNaZakaSimu = document.getElementById("prostredkyNaZakaSimu").value.replace(/\s+/g, '');
+        	var cistyVynosNaZakaSimuPerc = Math.round(cistyVynosNaZakaSimu/prostredkyNaZakaSimu * 100);
         		
         	if(cistyVynosNaZakaSimuPerc > 0){
         		document.getElementById("cistyVynosNaZakaSimuPerc").value = '+' + cistyVynosNaZakaSimuPerc + '%';
-        		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#DBFAE0';
+        		document.getElementById("cistyVynosNaZakaSimuPerc").setAttribute("style","background-color: #DBFAE0 !important");
         	} else if(cistyVynosNaZakaSimuPerc < 0) {
         		document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
-        		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#FADBE0';
+        		document.getElementById("cistyVynosNaZakaSimuPerc").setAttribute("style","background-color: #FADBE0 !important");
         	} else {
         		document.getElementById("cistyVynosNaZakaSimuPerc").value = cistyVynosNaZakaSimuPerc + '%';
-        		document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#e9ecef';
+        		document.getElementById("cistyVynosNaZakaSimuPerc").setAttribute("style","background-color: #e9ecef !important");
         	}
         }
         
         function cistyVynosNaZakaSimuPercEmpty() {
         	document.getElementById("cistyVynosNaZakaSimuPerc").value = '';
-        	document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#e9ecef';
+        	document.getElementById("cistyVynosNaZakaSimuPerc").style.backgroundColor = '#e9ecef !important';
+        }
+        
+        function cistyVynosCelkemSimuPerc() {
+        	var cistyVynosCelkemSimu = document.getElementById("cistyVynosCelkemSimu").value.replace(/\s+/g, '');
+        	var prostredkyCelkemSimu = document.getElementById("prostredkyCelkemSimu").value.replace(/\s+/g, '');
+        	var cistyVynosCelkemSimuPerc = Math.round(cistyVynosCelkemSimu/prostredkyCelkemSimu * 100);
+        		
+        	if(cistyVynosCelkemSimuPerc > 0){
+        		document.getElementById("cistyVynosCelkemSimuPerc").value = '+' + cistyVynosCelkemSimuPerc + '%';
+        		document.getElementById("cistyVynosCelkemSimuPerc").setAttribute("style","background-color: #DBFAE0 !important");
+        	} else if(cistyVynosCelkemSimuPerc < 0) {
+        		document.getElementById("cistyVynosCelkemSimuPerc").value = cistyVynosCelkemSimuPerc + '%';
+        		document.getElementById("cistyVynosCelkemSimuPerc").setAttribute("style","background-color: #FADBE0 !important");
+        	} else {
+        		document.getElementById("cistyVynosCelkemSimuPerc").value = cistyVynosCelkemSimuPerc + '%';
+        		document.getElementById("cistyVynosCelkemSimuPerc").setAttribute("style","background-color: #e9ecef !important");
+        	}
+        }
+        
+        function cistyVynosCelkemSimuPercEmpty() {
+        	document.getElementById("cistyVynosCelkemSimuPerc").value = '';
+        	document.getElementById("cistyVynosCelkemSimuPerc").setAttribute("style","background-color: #e9ecef !important");
         }
         
                 
@@ -217,6 +295,7 @@ const defaultRok = '2023';
        		
         	removeClass('warn');
 			cistyVynosNaZakaSimuPerc();
+			cistyVynosCelkemSimuPerc();
         }        
                 
         // Simulace - Calculate - Celkem
@@ -234,6 +313,7 @@ const defaultRok = '2023';
         	
         	removeClass('warn');
         	cistyVynosNaZakaSimuPerc();
+        	cistyVynosCelkemSimuPerc();
         }
         
         function calculateNakladyCelkemSimu() {
@@ -249,6 +329,7 @@ const defaultRok = '2023';
         	
         	removeClass('warn');
         	cistyVynosNaZakaSimuPerc();
+        	cistyVynosCelkemSimuPerc();
         }
         
         // Simulace - Calculate - Na Zaka
@@ -265,6 +346,7 @@ const defaultRok = '2023';
         	document.getElementById("prostredkyNaZakaSimu").value = Math.round(prostredkyNaZakaSimu).toLocaleString('cs-CZ');
         	removeClass('warn');
         	cistyVynosNaZakaSimuPerc();
+        	cistyVynosCelkemSimuPerc();
         }
         
     	// Errors
