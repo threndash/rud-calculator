@@ -351,3 +351,26 @@ color: #000 !important;
 button:hover {
 opacity: 0.9 !important;
 }
+
+.icon-button {
+width: 35px;
+height: 35px;
+border-radius: 50%;
+background-color: #c90239;
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+border: none;
+cursor: pointer;
+margin-left: 0.25rem;
+}
+
+.icon-button:hover {
+background-color: #99022d;
+border: none;
+}
+
+.icon-button:focus {
+outline: 0;
+}

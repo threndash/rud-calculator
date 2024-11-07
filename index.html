@@ -33,8 +33,13 @@
   <div class="background">
     <div id="area">
       <div id="title">
-        <h1>Kalkulačka</h1>
-        <h2>srovnání výnosů obcí z RUD na žáky s náklady obcí na provoz škol</h2>
+      <div style="display:flex; align-items:baseline; justify-content: center;">
+      <h1 style="margin-bottom:0px">Kalkulačka</h1>
+      <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#infoModal">
+        <i class="fas fa-info-circle text-white" style="font-size: 30px;"></i>
+        </button>
+      </div>
+      <h2>srovnání výnosů obcí z RUD na žáky s náklady obcí na provoz škol</h2>
       </div>
       <div id="table">
         <table class="table">
@@ -312,6 +317,55 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalLabel">Uživatelské instrukce</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Levý panel: Reálné údaje</strong></p>
+          <p>
+            Tento panel kalkuluje výnosy a náklady pro konkrétní zvolenou obec a to na základě
+            skutečného nastavení systému RUD ve zvoleném roce. Uživatel ale musí doplnit údaj
+            ‘Náklady obce na školu’. Zbývající údaje (‘Náklady obce na žáka’, ‘Čistý výnos’ a ‘Čistý
+            výnos na žáka’) jsou pak dopočítány automaticky.
+          </p>
+          <p>
+            Procentní údaje v tabulce udávají <em>‘Čistý výnos’</em> obecního rozpočtu jako podíl na ‘Výnosu
+            RUD za žáky’. Výnos 0 % odpovídá případu, kdy obec celý <em>‘Výnosu RUD za žáky’</em> posílá
+            svým školám jako <em>‘Náklady obce na školu’</em>. Výnos 100 % odpovídá hypotetickému případu,
+            kdy obec svým školám prostředky neposkytuje a <em>‘Náklady obce na školu’</em> jsou nulové.
+          </p>
+          <p>
+            Tlačítko <em>’Reset’</em> vrací obsah levého panelu do počátečního nastavení.
+          </p>
+
+          <p><strong>Pravý panel: Simulace</strong></p>
+          <p>
+            Tento panel nabízí simulační výpočty na základě uživatelem zadaných hypotetických údajů.
+            Uživatel může, ale nemusí, vyjít ze skutečných údajů, které lze do simulační sekce převést z
+            levého panelu klikem na tlačítku ‘Přenes reálné údaje’.
+          </p>
+          <p>
+            V panelu jsou 4 proměnné na bílém podkladu s knoflíkem <em>‘Optimalizovat’</em>, jejichž hodnoty
+            může uživatel upravovat. Pokud však hodnoty změní, tlačítka <em>‘Optimalizovat’</em> změní barvu na
+            tmavě vínovou a uživatel musí klikem na jednom z tlačítek provést výpočet hodnoty u
+            daného tlačítka. Mezi 4 proměnnými je totiž jednoznačný vztah.
+          </p>
+          <p>
+            Hodnoty ostatních údajů na šedém podkladu jsou dopočítána také, ale uživatel je nemůže
+            sám nastavovat.
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   
   <script src="www/js/main.js?version=3"></script>
