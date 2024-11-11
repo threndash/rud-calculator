@@ -441,3 +441,38 @@ background-color: #f4f4f4;
 background-image: none;
 text-decoration: none;
 }
+
+.introjs-tooltip-header {
+padding-top: 20px !important;
+}
+
+.introjs-skipbutton {
+width: 55px !important;
+height: 55px !important;
+}
+
+.introjs-tooltiptext > p:last-child {
+margin: 0px !important;
+}
+
+table {
+margin-bottom: 0px !important;
+}
+
+.introjs-arrow {
+bottom: 227px !important;
+border: 12px solid transparent !important;
+content: "" !important;
+position: absolute !important;
+}
+
+
+.right-bottom {
+right: -23px !important;
+border-left-color: #fff !important;
+}
+
+.left-bottom {
+left: -23px !important;
+border-right-color: #fff !important;
+}

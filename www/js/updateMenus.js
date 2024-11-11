@@ -26,8 +26,13 @@ const defaultRok = '2023';
             data.forEach(RUD => {
                 var rokDropdown = document.getElementById("rokDropdown");
                 var option = document.createElement("option");
-                var option_text = document.createTextNode(RUD.rok);
-                option.appendChild(option_text);
+                option.value = RUD.rok;
+                if(RUD.rok === '2024'){
+                	var option_text = `${RUD.rok}\u00B3`;
+                } else {
+                	var option_text = RUD.rok;
+                }
+                option.textContent = option_text;
                 rokDropdown.appendChild(option);
             });
             $('#rokDropdown').selectpicker('refresh');
