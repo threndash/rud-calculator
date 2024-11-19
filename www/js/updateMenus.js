@@ -381,20 +381,44 @@ const defaultRok = '2023';
 
         // Add event listener for 'input' event on each numeric input field
         numericInputs.forEach(input => {
-            input.addEventListener('input', function (e) {
-                // Get the current cursor position
-                const cursorPosition = input.selectionStart;
+    	input.addEventListener('input', function (e) {
+        // Get the current raw value (no spaces)
+        const rawValue = input.value.replace(/\s/g, '');
+        
+        // Get the original cursor position
+        const cursorPosition = input.selectionStart;
 
-                // Format the value
-                const formattedValue = formatNumberWithSpaces(input.value);
+        // Calculate the cursor position relative to the raw value
+        let rawCursorPosition = 0;
+        for (let i = 0; i < cursorPosition; i++) {
+            if (input.value[i] !== ' ') {
+                rawCursorPosition++;
+            }
+        }
 
-                // Set the formatted value back to the input
-                input.value = formattedValue;
+        // Format the value with spaces
+        const formattedValue = formatNumberWithSpaces(rawValue);
 
-                // Set the cursor position to the end of the input
-                input.setSelectionRange(cursorPosition, cursorPosition);
-            });
-        });
+        // Set the formatted value back to the input
+        input.value = formattedValue;
+
+        // Recalculate the cursor position based on spaces in the formatted value
+        let adjustedCursorPosition = 0;
+        let rawCounter = 0;
+        for (let i = 0; i < formattedValue.length; i++) {
+            if (formattedValue[i] !== ' ') {
+                rawCounter++;
+            }
+            if (rawCounter === rawCursorPosition) {
+                adjustedCursorPosition = i + 1;
+                break;
+            }
+        }
+
+        // Set the new cursor position
+        input.setSelectionRange(adjustedCursorPosition, adjustedCursorPosition);
+    	});
+		});
     	}
     	
     	function addClass(className) {
